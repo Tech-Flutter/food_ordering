@@ -36,23 +36,32 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: secondHalf.isEmpty
-          ? SmallText(text: firstHalf)
+          ? SmallText(  color: AppColors.paraColor,size: Dimensions.font16, text: firstHalf)
           : Column(
               children: [
                 SmallText(
+                  height: 1.8,
+                  color: AppColors.paraColor,
+                    size: Dimensions.font16,
                     text: hiddenText
                         ? (firstHalf + "...")
                         : (firstHalf + secondHalf)),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      hiddenText = !hiddenText;
+                    });
+                  },
                   child: Row(
                     children: [
                       SmallText(
-                        text: "Show more",
+                        text: hiddenText ? "Show more" : "Show less",
                         color: AppColors.mainColor,
                       ),
                       Icon(
-                        Icons.arrow_drop_down,
+                        hiddenText
+                            ? Icons.arrow_drop_down
+                            : Icons.arrow_drop_up,
                         color: AppColors.mainColor,
                       )
                     ],
